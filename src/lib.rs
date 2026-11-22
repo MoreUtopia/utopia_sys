@@ -25,12 +25,6 @@ pub mod start;
 
 mod syscall;
 
-pub mod prelude {
-    pub use crate::ErrorCodes;
-    pub use crate::SyscallConv;
-    pub use crate::wrapper::*;
-}
-
 /// Syscall convention for Utopia
 #[repr(usize)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
