@@ -1,6 +1,6 @@
-use crate::{SyscallNumber, SyscallConv, ErrorCodes};
-use core::ffi::CStr;
 use crate::syscall::syscall_arch;
+use crate::{ErrorCodes, SyscallConv, SyscallNumber};
+use core::ffi::CStr;
 
 #[inline]
 fn decode_ret(ret: isize) -> Result<usize, ErrorCodes> {
@@ -10,7 +10,6 @@ fn decode_ret(ret: isize) -> Result<usize, ErrorCodes> {
         Ok(ret as usize)
     }
 }
-
 
 const EXEC_MAX_ARGS: usize = 1024;
 const EXEC_MAX_PATH: usize = 4096;
@@ -62,7 +61,15 @@ fn exec_syscall(
 /// Syscall - 5
 /// write - writes arg3 (len) amount of bytes from arg2 (buf) to the file described by arg1 (fd)
 pub fn _write(fd: usize, buf: &[u8]) -> Result<usize, ErrorCodes> {
-    decode_ret(syscall_arch(SyscallNumber::Write as usize, fd, buf.as_ptr() as usize, buf.len() as usize, 0, 0, 0))
+    decode_ret(syscall_arch(
+        SyscallNumber::Write as usize,
+        fd,
+        buf.as_ptr() as usize,
+        buf.len(),
+        0,
+        0,
+        0,
+    ))
 }
 
 /// Syscall - 2000

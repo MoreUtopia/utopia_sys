@@ -4,8 +4,9 @@
     target_os = "none",
     any(target_arch = "x86_64", target_arch = "riscv64")
 )))]
-compile_error!("This library only supports x86_64-unknown-none and riscv64gc-unknown-none-elf which are only supported by utopia kernel targets.");
-
+compile_error!(
+    "This library only supports x86_64-unknown-none and riscv64gc-unknown-none-elf which are only supported by utopia kernel targets."
+);
 
 #[cfg(feature = "panic-handler")]
 /// Very simple panic handler for programs to work
@@ -23,6 +24,10 @@ pub mod wrapper;
 pub mod start;
 
 mod syscall;
+
+pub mod prelude {
+    pub use crate::wrapper::*;
+}
 
 /// Syscall convention for Utopia
 #[repr(usize)]
